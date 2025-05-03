@@ -4,3 +4,4 @@ import category from "./category.routes";
 
 export const api: Router = express.Router()
 
+api.use('/category', category)
