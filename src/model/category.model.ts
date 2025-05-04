@@ -7,45 +7,52 @@ export class Category {
     return await prisma.category.create({
       data: {
         name: name,
-        description: description
-      }
-    })
-  }
+        description: description,
+      },
+    });
+  };
 
   static delete = async ({ id }: Prisma.CategoryWhereUniqueInput) => {
     return await prisma.category.delete({
       where: {
-        id: id
-      }
-    })
-  }
+        id: id,
+      },
+    });
+  };
 
-  static async getCountAndAll({ page, perPage, search, order }: TGetCategorySchema) {
+  static async getCountAndAll({
+    page,
+    perPage,
+    search,
+    order,
+  }: TGetCategorySchema) {
     const [total, categories] = await prisma.category.findManyAndCount({
       skip: (page - 1) * perPage,
       take: perPage,
       where: {
         name: {
-          startsWith: search
+          startsWith: search,
           // contains: search
-        }
+        },
       },
       orderBy: {
-        id: order
-      }
-    })
+        id: order,
+      },
+    });
     return {
       paginated: paginatedResponse({ total, page, perPage }),
-      categories: categories
-    }
+      categories: categories,
+    };
   }
 
-
-  static async update({ id, name, description }: Prisma.CategoryUncheckedCreateInput) {
+  static async update({
+    id,
+    name,
+    description,
+  }: Prisma.CategoryUncheckedCreateInput) {
     return await prisma.category.update({
       where: { id: id },
-      data: { name, description }
+      data: { name, description },
     });
   }
-
 }

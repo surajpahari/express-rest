@@ -13,11 +13,11 @@
 //   }
 // }
 //
-import * as express from 'express'
+import * as express from "express";
 declare global {
   namespace e {
     interface Request {
-      parsedQuery?: any
+      parsedQuery?: any;
     }
   }
 }

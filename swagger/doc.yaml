@@ -1,0 +1,170 @@
+openapi: 3.0.0
+info:
+  title: Prisma Node API
+  version: 0.0.0
+  description: API documentation
+servers:
+  - url: http://localhost:3000
+
+
+paths:
+  /category:
+    post:
+      summary: Create a new category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "This is the category"
+                description:
+                  type: string
+                  example: "This consists of the electronics"
+      responses:
+        '201':
+          description: Category created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Category Created Successfully."
+                  data:
+                    type: object
+                    properties:
+                      Id:
+                        type: integer
+                        example: 22
+                      name:
+                        type: string
+                        example: "This is the category"
+                      description:
+                        type: string
+                        example: "This consists of the electronics"
+        '400':
+          description: Input validation failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Input Validation Failed."
+                  error:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          example: "invalid_type"
+                        expected:
+                          type: string
+                          example: "string"
+                        received:
+                          type: string
+                          example: "undefined"
+                        path:
+                          type: array
+                          items:
+                            type: string
+                          example: ["name"]
+                        message:
+                          type: string
+                          example: "Required"
+    get:
+      summary: Get the paginated Category
+      parameters:
+        - name: page
+          in: query
+          description: The page number to retrieve.
+          required: false
+          schema:
+            type: integer
+            example: 1
+        - name: perPage
+          in: query
+          description: The number of categories per page.
+          required: false
+          schema:
+            type: integer
+            example: 2
+      responses:
+        '200':
+          description: A list of categories (paginated)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Category Fetched Successfully."
+                  data:
+                    type: object
+                    properties:
+                      paginate:
+                        type: object
+                        properties:
+                          totalPage:
+                            type: integer
+                            example: 7
+                          perPage:
+                            type: integer
+                            example: 2
+                          currenPage:
+                            type: integer
+                            example: 1
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            Id:
+                              type: integer
+                              example: 11
+                            name:
+                              type: string
+                              example: "electroniasfasdfc"
+                            description:
+                              type: string
+                              example: "This consists of the electronics"
+        '400':
+          description: Input validation failed due to missing or invalid parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Input Validation Failed."
+                  error:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          example: "invalid_type"
+                        expected:
+                          type: string
+                          example: "string"
+                        received:
+                          type: string
+                          example: "undefined"
+                        path:
+                          type: array
+                          items:
+                            type: string
+                          example: ["name"]
+                        message:
+                          type: string
+                          example: "Required"

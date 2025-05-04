@@ -1,33 +1,41 @@
-
-import express from "express"
-import * as CategoryController from "../controller/category.controller"
-import { validateData, validateParams, validateQuery } from "../utils/validation";
-import { addCategorySchema, deleteCategorySchema, getCategorySchema, updateCategorySchema } from "../validation/category.schema";
+import express from "express";
+import * as CategoryController from "../controller/category.controller";
+import {
+  validateData,
+  validateParams,
+  validateQuery,
+} from "../utils/validation";
+import {
+  addCategorySchema,
+  deleteCategorySchema,
+  getCategorySchema,
+  updateCategorySchema,
+} from "../validation/category.schema";
 
 //FROM  api/category .....
-const category = express.Router()
+const category = express.Router();
 
 category.post(
   "/",
   validateData(addCategorySchema),
-  CategoryController.createCategory
+  CategoryController.createCategory,
 );
-
 
 category.get(
   "/",
   validateQuery(getCategorySchema),
-  CategoryController.getCategory
-)
+  CategoryController.getCategory,
+);
 
 category.put(
   "/",
   validateData(updateCategorySchema),
-  CategoryController.updateCategory
-)
+  CategoryController.updateCategory,
+);
 
-category.delete("/delete/:id",
+category.delete(
+  "/delete/:id",
   validateParams(deleteCategorySchema),
-  CategoryController.deleteCategory
-)
-export default category
+  CategoryController.deleteCategory,
+);
+export default category;
